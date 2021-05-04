@@ -47,7 +47,7 @@ Note: Ubuntu schema files are not called mysql.sql, but schema.sql.
 
 Next, you need to configure freeradius to use the mysql database. Edit the /etc/freeradius/radiusd.conf file:
 - uncomment `$INCLUDE  sql.conf`
-Edit also the /etc/freeradius/sql.conf file:
+Edit also the /etc/freeradius/sql.conf file (example [here](./freeradius/sql.conf)):
 - set database = `"mysql"`
 
 
@@ -78,9 +78,9 @@ listen {
 - nesure that `$INCLUDE  sql.conf` is uncommented
 
 On AP1 edit the /etc/freeradius/clients.conf file and add:
-- clients ip address pool and secret (in our example ip: 192.168.100.0/24 and secret: robotdemo)
+- clients ip address pool and secret (in our example ip: 192.168.0.0/24 and secret: robotdemo)
 ```yaml
-client 192.168.100.0/24 {
+client 192.168.0.0/24 {
 
         secret      = robotdemo
         require_message_authenticator = no
