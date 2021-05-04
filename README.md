@@ -45,14 +45,14 @@ Import the freeraduis mysql schema files in the database you created:
 - `mysql -u root -p radius < /etc/freeradius/sql/mysql/schema.sql`
 Note: Ubuntu schema files are not called mysql.sql, but schema.sql.
 
-Next, you need to configure freeradius to use the mysql database. Edit the /etc/freeradius/radiusd.conf file:
+Next, you need to configure freeradius to use the mysql database. Edit the /etc/freeradius/radiusd.conf file (example [here](./freeradius/radiusd.conf)):
 - uncomment `$INCLUDE  sql.conf`
 Edit also the /etc/freeradius/sql.conf file (example [here](./freeradius/sql.conf)):
 - set database = `"mysql"`
 
 
 ### Freeradius
-On AP1 where freeradius is installed edit the /etc/freeradius/radiusd.conf file and after line 355 add:
+On AP1 where freeradius is installed edit the /etc/freeradius/radiusd.conf file and after line 355 add (example [here](./freeradius/radiusd.conf)):
 - radius server listening auth ip address and interface (in our example ip: 192.168.100.1 and interface: eno1)
 ```yaml
 listen {
@@ -77,7 +77,7 @@ listen {
 ```
 - nesure that `$INCLUDE  sql.conf` is uncommented
 
-On AP1 edit the /etc/freeradius/clients.conf file and add:
+On AP1 edit the /etc/freeradius/clients.conf file and add (example [here](./freeradius/clients.conf)):
 - clients ip address pool and secret (in our example ip: 192.168.0.0/24 and secret: robotdemo)
 ```yaml
 client 192.168.0.0/24 {
@@ -88,6 +88,6 @@ client 192.168.0.0/24 {
 }
 ```
 
-On AP1 edit the /etc/freeradius/users file and add:
+On AP1 edit the /etc/freeradius/users file and add (example [here](./freeradius/users)):
 - The username and password of the client that will roam (this info will be later also configured in the wpa_supplicant)
   - `robot01 Cleartext-Password := "robotdemo"`
