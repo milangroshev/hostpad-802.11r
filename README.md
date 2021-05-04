@@ -52,3 +52,42 @@ Edit also the /etc/freeradius/sql.conf file:
 
 
 ### Freeradius
+On AP1 where freeradius is installed edit the /etc/freeradius/radiusd.conf file and after line 355 add:
+- radius server listening auth ip address and interface (in our example ip: 192.168.100.1 and interface: eno1)
+```yaml
+listen {
+        
+        type = auth
+        ipaddr = 192.168.100.1   
+        port = 0
+        interface = eno1	
+
+}
+```
+- radius server listening accounting ip address and interface (in our example ip: 192.168.100.1 and interface: eno1)
+```yaml
+listen {
+        
+        type = acct
+        ipaddr = 192.168.100.1  
+        port = 0
+        interface = eno1	
+
+}
+```
+- nesure that `$INCLUDE  sql.conf` is uncommented
+
+On AP1 edit the /etc/freeradius/clients.conf file and add:
+- clients ip address pool and secret (in our example ip: 192.168.100.0/24 and secret: robotdemo)
+```yaml
+client 192.168.100.0/24 {
+
+        secret      = robotdemo
+        require_message_authenticator = no
+        nastype     =
+}
+```
+
+On AP1 edit the /etc/freeradius/users file and add:
+- The username and password of the client that will roam (this info will be later also configured in the wpa_supplicant)
+  - `robot01 Cleartext-Password := "robotdemo"`
